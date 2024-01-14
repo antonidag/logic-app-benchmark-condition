@@ -1,1 +1,1 @@
-# logic-app-condition-vs-switch
+# Logic App Condition vs Switch
