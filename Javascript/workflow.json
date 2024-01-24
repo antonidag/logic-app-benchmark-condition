@@ -1,0 +1,48 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Execute_JavaScript_Code": {
+                "type": "JavaScriptCode",
+                "inputs": {
+                    "code": "const number = workflowContext.trigger.outputs.body.number;\r\n\r\nif(number == 10 || number == 20 || number == 30){\r\n    return number\r\n}\r\nreturn null;"
+                },
+                "runAfter": {}
+            },
+            "Response": {
+                "type": "Response",
+                "kind": "Http",
+                "inputs": {
+                    "statusCode": 200,
+                    "body": {
+                        "number": "@outputs('Execute_JavaScript_Code')"
+                    }
+                },
+                "runAfter": {
+                    "Execute_JavaScript_Code": [
+                        "SUCCEEDED"
+                    ]
+                }
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "When_a_HTTP_request_is_received": {
+                "type": "Request",
+                "kind": "Http",
+                "inputs": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "number": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "kind": "Stateful"
+}

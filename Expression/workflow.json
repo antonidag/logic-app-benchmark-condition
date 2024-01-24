@@ -1,0 +1,46 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Compose_-_number_eq_to_10,_20_or_30": {
+                "type": "Compose",
+                "inputs": "@if(equals(triggerBody()?['number'],10),10,if(equals(triggerBody()?['number'],20),20,if(equals(triggerBody()?['number'],30),30,null)))",
+                "runAfter": {}
+            },
+            "Response": {
+                "type": "Response",
+                "kind": "Http",
+                "inputs": {
+                    "statusCode": 200,
+                    "body": {
+                        "number": "@outputs('Compose_-_number_eq_to_10,_20_or_30')"
+                    }
+                },
+                "runAfter": {
+                    "Compose_-_number_eq_to_10,_20_or_30": [
+                        "SUCCEEDED"
+                    ]
+                }
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "When_a_HTTP_request_is_received": {
+                "type": "Request",
+                "kind": "Http",
+                "inputs": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "number": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "kind": "Stateful"
+}

@@ -1,0 +1,78 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Condition_-_item_eq_10,_20_or_30": {
+                "type": "If",
+                "expression": {
+                    "or": [
+                        {
+                            "equals": [
+                                "@triggerBody()?['number']",
+                                10
+                            ]
+                        },
+                        {
+                            "equals": [
+                                "@triggerBody()?['number']",
+                                20
+                            ]
+                        },
+                        {
+                            "equals": [
+                                "@triggerBody()?['number']",
+                                30
+                            ]
+                        }
+                    ]
+                },
+                "actions": {
+                    "Response_-_with_number": {
+                        "type": "Response",
+                        "kind": "Http",
+                        "inputs": {
+                            "statusCode": 200,
+                            "body": {
+                                "number": "@triggerBody()?['number']"
+                            }
+                        }
+                    }
+                },
+                "else": {
+                    "actions": {
+                        "Response_-_with_null": {
+                            "type": "Response",
+                            "kind": "Http",
+                            "inputs": {
+                                "statusCode": 200,
+                                "body": {
+                                    "number": "@null"
+                                }
+                            }
+                        }
+                    }
+                },
+                "runAfter": {}
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "When_a_HTTP_request_is_received": {
+                "type": "Request",
+                "kind": "Http",
+                "inputs": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "number": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "kind": "Stateful"
+}
