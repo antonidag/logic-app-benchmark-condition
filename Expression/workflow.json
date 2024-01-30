@@ -2,25 +2,16 @@
     "definition": {
         "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
         "actions": {
-            "Compose_-_number_eq_to_10,_20_or_30": {
-                "type": "Compose",
-                "inputs": "@if(equals(triggerBody()?['number'],10),10,if(equals(triggerBody()?['number'],20),20,if(equals(triggerBody()?['number'],30),30,null)))",
-                "runAfter": {}
-            },
             "Response": {
                 "type": "Response",
                 "kind": "Http",
                 "inputs": {
                     "statusCode": 200,
                     "body": {
-                        "number": "@outputs('Compose_-_number_eq_to_10,_20_or_30')"
+                        "number": "@if(equals(triggerBody()?['number'],20),triggerBody()?['number'],if(equals(triggerBody()?['number'],30),triggerBody()?['number'],if(equals(triggerBody()?['number'],40),triggerBody()?['number'],null)))"
                     }
                 },
-                "runAfter": {
-                    "Compose_-_number_eq_to_10,_20_or_30": [
-                        "SUCCEEDED"
-                    ]
-                }
+                "runAfter": {}
             }
         },
         "contentVersion": "1.0.0.0",
