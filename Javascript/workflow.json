@@ -5,7 +5,7 @@
             "Execute_JavaScript_Code": {
                 "type": "JavaScriptCode",
                 "inputs": {
-                    "code": "const number = workflowContext.trigger.outputs.body.number;\r\n\r\nif(number == 10 || number == 20 || number == 30){\r\n    return number\r\n}\r\nreturn null;"
+                    "code": "const number = workflowContext.trigger.outputs.body.number;\r\n\r\nif(number == 20 || number == 30 || number == 40){\r\n    return number\r\n}\r\nreturn null;"
                 },
                 "runAfter": {}
             },
