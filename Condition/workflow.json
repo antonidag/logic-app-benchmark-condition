@@ -2,16 +2,10 @@
     "definition": {
         "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
         "actions": {
-            "Condition_-_item_eq_10,_20_or_30": {
+            "Condition_-_item_eq_20,_30_or_40": {
                 "type": "If",
                 "expression": {
                     "or": [
-                        {
-                            "equals": [
-                                "@triggerBody()?['number']",
-                                10
-                            ]
-                        },
                         {
                             "equals": [
                                 "@triggerBody()?['number']",
@@ -22,6 +16,12 @@
                             "equals": [
                                 "@triggerBody()?['number']",
                                 30
+                            ]
+                        },
+                        {
+                            "equals": [
+                                "@triggerBody()?['number']",
+                                40
                             ]
                         }
                     ]
